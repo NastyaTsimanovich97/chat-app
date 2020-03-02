@@ -1,0 +1,13 @@
+/* export const styles = {
+  app: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100%',
+  }
+} */
+
+.App{
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
