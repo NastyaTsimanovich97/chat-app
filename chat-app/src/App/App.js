@@ -7,9 +7,9 @@ import ChatContent from '../ChatContent';
 function App() {
   return (
     <div className="App">
-     <Header></Header>
-     <ChatContent></ChatContent>
-     <Footer></Footer>
+      <Header />
+      <ChatContent />
+      <Footer />
     </div>
   );
 }

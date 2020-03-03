@@ -1,5 +1,5 @@
 export const styles = {
-  headerChat:{
+  headerChat: {
     /* flex: 0 0 auto; */
     flexGrow: 0,
     width: '100%',
@@ -7,4 +7,4 @@ export const styles = {
     backgroundColor: 'rgb(52, 139, 226)',
     color: 'rgb(255, 255, 255)',
   },
-}
+};

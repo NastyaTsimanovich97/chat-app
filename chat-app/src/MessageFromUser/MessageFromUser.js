@@ -1,24 +1,18 @@
 import React from 'react';
 import './MessageFromUser.style';
 
-export default class MessageFromUser extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      userName: 'Katya',
-      messageText: 'Good!'
-    };
-  }
-  render(){
-    return(
-      <div className={this.props.classes.messageContainer}>
-        <div className={this.props.classes.messageHeader}>
-          <p>{this.state.userName}</p>
+export default class MessageFromUser extends React.Component {
+  render() {
+    const { classes, userName, message } = this.state;
+    return (
+      <div className={classes.messageContainer}>
+        <div className={classes.messageHeader}>
+          <p>{userName}</p>
         </div>
-        <div className={this.props.classes.messageText}>
-          {this.state.messageText}
+        <div className={classes.messageText}>
+          {message}
         </div>
       </div>
-    )
+    );
   }
 }
