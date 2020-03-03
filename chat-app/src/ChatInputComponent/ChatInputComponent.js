@@ -18,7 +18,7 @@ export default class ChatInputComponent extends React.Component {
   }
 
   render() {
-    const { classes, value, updateData } = this.state;
+    const { classes, value, updateData } = this.props;
     return (
       <div className={classes.chatInputContainer}>
         <TextField

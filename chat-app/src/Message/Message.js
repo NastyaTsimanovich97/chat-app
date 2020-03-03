@@ -6,7 +6,7 @@ export default class Message extends React.Component {
   render() {
     const {
       classes, userLogo, userName, message,
-    } = this.state;
+    } = this.props;
     return (
       <div className={classes.messageContainer}>
         <div className={classes.messageHeader}>

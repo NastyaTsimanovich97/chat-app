@@ -3,7 +3,7 @@ import './MessageFromUser.style';
 
 export default class MessageFromUser extends React.Component {
   render() {
-    const { classes, userName, message } = this.state;
+    const { classes, userName, message } = this.props;
     return (
       <div className={classes.messageContainer}>
         <div className={classes.messageHeader}>
