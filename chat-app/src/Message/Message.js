@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Message.style';
 import Avatar from '@material-ui/core/Avatar';
 
-export default class Message extends React.Component {
+export default class Message extends React.PureComponent {
   render() {
     const {
       classes, userLogo, userName, message,
@@ -20,3 +21,10 @@ export default class Message extends React.Component {
     );
   }
 }
+
+Message.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  userLogo: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+};

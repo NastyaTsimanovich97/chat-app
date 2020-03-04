@@ -1,4 +1,4 @@
-export const styles = {
+const styles = {
   chatInputContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -17,3 +17,5 @@ export const styles = {
     margin: '10px',
   },
 };
+
+export default styles;

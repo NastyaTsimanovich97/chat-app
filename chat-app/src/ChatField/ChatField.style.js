@@ -1,4 +1,4 @@
-export const styles = {
+const styles = {
   chatField: {
     display: 'flex',
     flexDirection: 'column',
@@ -9,3 +9,5 @@ export const styles = {
     overflowY: 'auto',
   },
 };
+
+export default styles;

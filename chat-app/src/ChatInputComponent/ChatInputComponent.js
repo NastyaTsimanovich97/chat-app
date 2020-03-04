@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -18,7 +19,8 @@ export default class ChatInputComponent extends React.Component {
   }
 
   render() {
-    const { classes, value, updateData } = this.props;
+    const { value } = this.state;
+    const { classes, updateData } = this.props;
     return (
       <div className={classes.chatInputContainer}>
         <TextField
@@ -37,7 +39,7 @@ export default class ChatInputComponent extends React.Component {
           className={classes.buttonInput}
           variant="contained"
           color="secondary"
-          onClick={() => { updateData(this.state.value); }}
+          onClick={() => { updateData(value); }}
         >
           Send
         </Button>
@@ -45,3 +47,8 @@ export default class ChatInputComponent extends React.Component {
     );
   }
 }
+
+ChatInputComponent.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  updateData: PropTypes.func.isRequired,
+};

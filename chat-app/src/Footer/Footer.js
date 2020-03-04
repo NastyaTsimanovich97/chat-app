@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Footer extends React.Component {
+export default class Footer extends React.PureComponent {
   render() {
     const { classes } = this.props;
     return (
@@ -8,3 +9,7 @@ export default class Footer extends React.Component {
     );
   }
 }
+
+Footer.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+};

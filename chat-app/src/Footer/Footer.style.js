@@ -1,4 +1,4 @@
-export const styles = {
+const styles = {
   footerChat: {
     flexGrow: 0,
     width: '100%',
@@ -7,3 +7,5 @@ export const styles = {
     color: 'rgb(255, 255, 255)',
   },
 };
+
+export default styles;

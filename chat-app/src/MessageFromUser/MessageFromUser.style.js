@@ -1,4 +1,4 @@
-export const styles = {
+const styles = {
   red: {
     margin: '5px',
     backgroundColor: 'rgb(255, 66, 124)',
@@ -24,3 +24,5 @@ export const styles = {
     backgroundColor: 'rgba(180, 198, 253, 0.8)',
   },
 };
+
+export default styles;

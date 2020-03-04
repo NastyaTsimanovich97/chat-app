@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './MessageFromUser.style';
 
-export default class MessageFromUser extends React.Component {
+export default class MessageFromUser extends React.PureComponent {
   render() {
     const { classes, userName, message } = this.props;
     return (
@@ -16,3 +17,9 @@ export default class MessageFromUser extends React.Component {
     );
   }
 }
+
+MessageFromUser.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  userName: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+};
