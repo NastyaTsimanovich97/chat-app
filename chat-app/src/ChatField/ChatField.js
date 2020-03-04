@@ -11,8 +11,8 @@ export default class ChatField extends React.PureComponent {
       <div className={classes.chatField}>
         <div className={classes.messageContainer}>
           {messages.map((message, index) => (message.userId === ownerId
-            ? <MessageFromUser key={message.userId + index} {...message} />
-            : <Message key={message.userId + index} {...message} />))}
+            ? <MessageFromUser key={message.userId + (+index)} {...message} />
+            : <Message key={message.userId + (+index)} {...message} />))}
         </div>
       </div>
     );
