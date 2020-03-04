@@ -11,26 +11,35 @@ import Footer from '../Footer';
 import ChatContent from '../ChatContent';
 import LoginPage from '../LoginPage';
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <LoginPage />
-          </Route>
-          <Route exact path="/login">
-            <LoginPage />
-          </Route>
-          <Route exact path="/chat">
-            <ChatContent />
-          </Route>
-        </Switch>
-        <Footer />
-      </div>
-    </Router>
-  );
+class App extends React.Component {
+  // constructor(props){
+  //   super(props),
+  //   this.state = {
+  //     isLoggedIn: false,
+  //     isPassword: false,
+  //   }
+  // }
+  render(){
+    return (
+      <Router>
+        <div className="App">
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              <LoginPage />
+            </Route>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
+            <Route exact path="/chat">
+              <ChatContent />
+            </Route>
+          </Switch>
+          <Footer />
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

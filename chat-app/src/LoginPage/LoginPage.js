@@ -45,11 +45,14 @@ export default class LoginPage extends React.Component {
     const { isLoggedIn } = this.state;
     const { isPassword } = this.state;
     let button;
+    let signInButton;
 
     if (isLoggedIn && isPassword) {
+      signInButton = <Link to="/chat"><Button variant="contained" color="secondary">Sign In</Button></Link>;
       button = <Link to="/chat"><Button variant="contained" color="primary">Login</Button></Link>;
     } else {
       button = <Button variant="contained" color="primary">Login</Button>;
+      signInButton = <Button variant="contained" color="secondary">Sign In</Button>;
     }
 
     return (
@@ -80,9 +83,7 @@ export default class LoginPage extends React.Component {
             />
           </CardContent>
           <CardActions className={classes.cardActions}>
-            <Button variant="contained" color="secondary">
-              Sign In
-            </Button>
+            { signInButton }
             { button }
           </CardActions>
         </Card>
