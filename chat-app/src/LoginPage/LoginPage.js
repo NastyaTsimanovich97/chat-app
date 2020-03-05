@@ -8,7 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import nextId from 'react-id-generator';
 import addUser from '../actions';
+
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -18,6 +20,8 @@ class LoginPage extends React.Component {
       isPassword: false,
       login: '',
       password: '',
+      userId: nextId('userId-'),
+      hasUser: false,
     };
     this.loginChange = this.loginChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
@@ -42,15 +46,25 @@ class LoginPage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { login, password } = this.state;
-    const { addNewUser } = this.props;
-    addNewUser({ login, password });
-    this.setState({ login: '', password: '' });
+    const { login, password, userId, hasUser } = this.state;
+    const { addNewUser, users } = this.props;
+    const indexUser = users.findIndex(user => {
+      if(user.login === login){
+        return true;
+      } return false;
+    });
+    if (indexUser === -1) {
+      addNewUser({ login, password, userId });
+      this.setState({ login: '', password: '', userId: nextId('userId-') });
+      this.setState({hasUser: false});
+    } else {
+      this.setState({hasUser: true});
+    }
   }
 
   render() {
     const { classes } = this.props;
-    const { login, password } = this.state;
+    const { login, password, hasUser } = this.state;
 
     const { isLoggedIn } = this.state;
     const { isPassword } = this.state;
@@ -58,11 +72,11 @@ class LoginPage extends React.Component {
     let signInButton;
 
     if (isLoggedIn && isPassword) {
-      signInButton = <Link to="/chat"><Button variant="contained" color="secondary" onClick={this.handleSubmit}>Sign In</Button></Link>;
+      signInButton = <Link to="/chat"><Button variant="contained" color="secondary" onClick={this.handleSubmit}>Sign Up</Button></Link>;
       button = <Link to="/chat"><Button variant="contained" color="primary">Login</Button></Link>;
     } else {
       button = <Button variant="contained" color="primary">Login</Button>;
-      signInButton = <Button variant="contained" color="secondary">Sign In</Button>;
+      signInButton = <Button variant="contained" color="secondary">Sign Up</Button>;
     }
 
     return (
@@ -73,6 +87,7 @@ class LoginPage extends React.Component {
               Login
             </Typography>
             <TextField
+              error={hasUser}
               className={classes.input}
               required
               id="standard-required"
@@ -82,6 +97,7 @@ class LoginPage extends React.Component {
               onChange={this.loginChange}
             />
             <TextField
+              error={hasUser}
               className={classes.input}
               required
               id="password-required"
@@ -107,6 +123,11 @@ LoginPage.propTypes = {
   addNewUser: PropTypes.func,
 };
 
+
+const mapStateToProps = state => { 
+  return { users: state.users }; 
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     addNewUser: (user) => dispatch(addUser(user)),
@@ -114,6 +135,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(LoginPage);
