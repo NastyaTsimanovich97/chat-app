@@ -11,7 +11,7 @@ import Footer from '../Footer';
 import ChatContent from '../ChatContent';
 import LoginPage from '../LoginPage';
 
-class App extends React.Component {
+class App extends React.PureComponent {
   // constructor(props){
   //   super(props),
   //   this.state = {
@@ -19,7 +19,7 @@ class App extends React.Component {
   //     isPassword: false,
   //   }
   // }
-  render(){
+  render() {
     return (
       <Router>
         <div className="App">
