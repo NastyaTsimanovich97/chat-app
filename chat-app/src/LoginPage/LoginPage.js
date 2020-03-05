@@ -17,66 +17,59 @@ class LoginPage extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      isPassword: false,
+      isSignedUp: false,
       login: '',
       password: '',
       userId: nextId('userId-'),
-      hasUser: false,
+      userExist: false,
     };
     this.loginChange = this.loginChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitSignUp = this.handleSubmitSignUp.bind(this);
+    this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
   }
 
   loginChange(event) {
-    const { login } = this.state;
     this.setState({ login: event.target.value });
-    if (login !== '') {
-      this.setState({ isLoggedIn: true });
-    }
   }
 
   passwordChange(event) {
-    const { password } = this.state;
     this.setState({ password: event.target.value });
-    if (password !== '') {
-      this.setState({ isPassword: true });
+  }
+
+  handleSubmitSignUp() {
+    const { login, password, userId} = this.state;
+    const { addNewUser, users } = this.props;
+    const indexUser = users.some(user => user.login === login);
+    if (indexUser || !login  || !password ) {
+      this.setState({userExist: true});
+    } else {
+      addNewUser({ login, password, userId });
+      this.setState({ login: '', password: '', userId: nextId('userId-'), userExist: false, isSignedUp: true });
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const { login, password, userId, hasUser } = this.state;
-    const { addNewUser, users } = this.props;
-    const indexUser = users.findIndex(user => {
-      if(user.login === login){
-        return true;
-      } return false;
-    });
-    if (indexUser === -1) {
-      addNewUser({ login, password, userId });
-      this.setState({ login: '', password: '', userId: nextId('userId-') });
-      this.setState({hasUser: false});
+  handleSubmitLogin() {
+    const { login, password } = this.state;
+    const { users } = this.props;
+    const indexUser = users.some(user => user.login === login && user.password === password);
+    if ( indexUser && login && password ) {
+      this.setState({ userExist: false, isLoggedIn: true });
     } else {
-      this.setState({hasUser: true});
+      this.setState({ userExist: true });
     }
   }
 
   render() {
     const { classes } = this.props;
-    const { login, password, hasUser } = this.state;
+    const { login, password, userExist, isLoggedIn, isSignedUp } = this.state;
 
-    const { isLoggedIn } = this.state;
-    const { isPassword } = this.state;
-    let button;
-    let signInButton;
+    let link;
 
-    if (isLoggedIn && isPassword) {
-      signInButton = <Link to="/chat"><Button variant="contained" color="secondary" onClick={this.handleSubmit}>Sign Up</Button></Link>;
-      button = <Link to="/chat"><Button variant="contained" color="primary">Login</Button></Link>;
+    if (isSignedUp || isLoggedIn) {
+      link = '/chat';
     } else {
-      button = <Button variant="contained" color="primary">Login</Button>;
-      signInButton = <Button variant="contained" color="secondary">Sign Up</Button>;
+      link = '/login';
     }
 
     return (
@@ -87,7 +80,7 @@ class LoginPage extends React.Component {
               Login
             </Typography>
             <TextField
-              error={hasUser}
+              error={userExist}
               className={classes.input}
               required
               id="standard-required"
@@ -97,7 +90,7 @@ class LoginPage extends React.Component {
               onChange={this.loginChange}
             />
             <TextField
-              error={hasUser}
+              error={userExist}
               className={classes.input}
               required
               id="password-required"
@@ -109,8 +102,8 @@ class LoginPage extends React.Component {
             />
           </CardContent>
           <CardActions className={classes.cardActions}>
-            { signInButton }
-            { button }
+            <Link to={link}><Button variant="contained" color="secondary" onMouseDown={this.handleSubmitSignUp}>Sign Up</Button></Link>
+            <Link to={link}><Button variant="contained" color="primary" onMouseDown={this.handleSubmitLogin}>Login</Button></Link>
           </CardActions>
         </Card>
       </div>
