@@ -9,7 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import nextId from 'react-id-generator';
-import addUser from '../actions';
+import addUser from '../../state/actions';
+// import { createSelector } from 'reselect';
 
 
 class LoginPage extends React.Component {
@@ -39,8 +40,9 @@ class LoginPage extends React.Component {
 
   handleSubmitSignUp() {
     const { login, password, userId} = this.state;
-    const { addNewUser, users } = this.props;
+    const { addNewUser, users, haveUser } = this.props;
     const indexUser = users.some(user => user.login === login);
+    console.log(haveUser)
     if (indexUser || !login  || !password ) {
       this.setState({userExist: true});
     } else {
@@ -116,9 +118,15 @@ LoginPage.propTypes = {
   addNewUser: PropTypes.func,
 };
 
+// const findLoginSelector = (state) => {
+//   return state.users.some(user => user.login === login);
+// }
 
 const mapStateToProps = state => { 
-  return { users: state.users }; 
+  return { 
+    users: state.users,
+    // haveUser: findLoginSelector(state), 
+  }; 
 };
 
 function mapDispatchToProps(dispatch) {

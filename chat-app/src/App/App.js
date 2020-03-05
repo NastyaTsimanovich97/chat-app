@@ -6,10 +6,10 @@ import {
 } from 'react-router-dom';
 
 import './App.style.css';
-import Header from '../Header';
-import Footer from '../Footer';
-import ChatContent from '../ChatContent';
-import LoginPage from '../LoginPage';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import ChatContent from '../components/ChatContent';
+import LoginPage from '../components/LoginPage';
 
 class App extends React.PureComponent {
   // constructor(props){
