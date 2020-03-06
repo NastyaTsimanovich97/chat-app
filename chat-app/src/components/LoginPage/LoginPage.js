@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import nextId from 'react-id-generator';
 import addUser from '../../state/actions';
-// import { createSelector } from 'reselect';
+import userLogin from '../../selectors/userLoginSelect';
 
 
 class LoginPage extends React.Component {
@@ -40,9 +40,8 @@ class LoginPage extends React.Component {
 
   handleSubmitSignUp() {
     const { login, password, userId} = this.state;
-    const { addNewUser, users, haveUser } = this.props;
-    const indexUser = users.some(user => user.login === login);
-    console.log(haveUser)
+    const { addNewUser, userLogin } = this.props;
+    const indexUser = userLogin.some(item => item === login);
     if (indexUser || !login  || !password ) {
       this.setState({userExist: true});
     } else {
@@ -118,14 +117,11 @@ LoginPage.propTypes = {
   addNewUser: PropTypes.func,
 };
 
-// const findLoginSelector = (state) => {
-//   return state.users.some(user => user.login === login);
-// }
 
 const mapStateToProps = state => { 
   return { 
-    users: state.users,
-    // haveUser: findLoginSelector(state), 
+    users: state.users, 
+    userLogin: userLogin(state),
   }; 
 };
 
