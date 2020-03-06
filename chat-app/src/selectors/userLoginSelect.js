@@ -4,12 +4,10 @@ const getUsersLogin = (state) => state.users;
 
 const userLogin = createSelector(
   [getUsersLogin],
-  (users) => {
-    const result = [];
-    users.forEach(element => {
-      result.push(element.login);
-    });
-    return result;
+  (users) => {  
+    return users.reduce((prev, current) => {
+      return [...prev, current.login];
+    }, [])
   }
 )
 
