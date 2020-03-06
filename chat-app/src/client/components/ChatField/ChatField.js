@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Message from '../Message';
-import MessageFromUser from '../MessageFromUser';
+import Message from 'client/components/Message';
+import MessageFromUser from 'client/components/MessageFromUser';
 
 export default class ChatField extends React.PureComponent {
   render() {
@@ -21,6 +21,11 @@ export default class ChatField extends React.PureComponent {
 
 ChatField.propTypes = {
   ownerId: PropTypes.string.isRequired,
-  messages: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  messages: PropTypes.arrayOf(PropTypes.shape({
+    userId: PropTypes.string.isRequired,
+  })).isRequired,
+  classes: PropTypes.shape({
+    chatField: PropTypes.string.isRequired,
+    messageContainer: PropTypes.string.isRequired,
+  }).isRequired,
 };

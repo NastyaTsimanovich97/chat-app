@@ -9,8 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import nextId from 'react-id-generator';
-import addUser from '../../state/actions';
-import userLogin from '../../selectors/userLoginSelect';
+import addUser from 'client/state/actions';
+import userLogin from 'client/selectors/userLoginSelect';
 
 
 class LoginPage extends React.Component {
@@ -39,22 +39,24 @@ class LoginPage extends React.Component {
   }
 
   handleSubmitSignUp() {
-    const { login, password, userId} = this.state;
-    const { addNewUser, userLogin } = this.props;
-    const indexUser = userLogin.some(item => item === login);
-    if (indexUser || !login  || !password ) {
-      this.setState({userExist: true});
+    const { login, password, userId } = this.state;
+    const { addNewUser, userLoginArray } = this.props;
+    const indexUser = userLoginArray.some((item) => item === login);
+    if (indexUser || !login || !password) {
+      this.setState({ userExist: true });
     } else {
       addNewUser({ login, password, userId });
-      this.setState({ login: '', password: '', userId: nextId('userId-'), userExist: false, isSignedUp: true });
+      this.setState({
+        login: '', password: '', userId: nextId('userId-'), userExist: false, isSignedUp: true,
+      });
     }
   }
 
   handleSubmitLogin() {
     const { login, password } = this.state;
     const { users } = this.props;
-    const indexUser = users.some(user => user.login === login && user.password === password);
-    if ( indexUser && login && password ) {
+    const indexUser = users.some((user) => user.login === login && user.password === password);
+    if (indexUser && login && password) {
       this.setState({ userExist: false, isLoggedIn: true });
     } else {
       this.setState({ userExist: true });
@@ -63,7 +65,9 @@ class LoginPage extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { login, password, userExist, isLoggedIn, isSignedUp } = this.state;
+    const {
+      login, password, userExist, isLoggedIn, isSignedUp,
+    } = this.state;
 
     let link;
 
@@ -113,17 +117,26 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  addNewUser: PropTypes.func,
+  classes: PropTypes.shape({
+    cardContainer: PropTypes.string.isRequired,
+    card: PropTypes.string.isRequired,
+    input: PropTypes.string.isRequired,
+    cardActions: PropTypes.string.isRequired,
+  }).isRequired,
+  addNewUser: PropTypes.func.isRequired,
+  userLoginArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({
+    login: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
 };
 
 
-const mapStateToProps = state => { 
-  return { 
-    users: state.users, 
-    userLogin: userLogin(state),
-  }; 
-};
+const mapStateToProps = (state) => ({
+  users: state.users,
+  userLoginArray: userLogin(state),
+});
 
 function mapDispatchToProps(dispatch) {
   return {

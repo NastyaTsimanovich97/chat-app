@@ -13,5 +13,7 @@ export default class Header extends React.PureComponent {
 }
 
 Header.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  classes: PropTypes.shape({
+    headerChat: PropTypes.string.isRequired,
+  }).isRequired,
 };

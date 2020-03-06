@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './client/state/store';
-import './index.css';
-import App from './client/App/App';
-import * as serviceWorker from './serviceWorker';
-import addUser from './client/state/actions';
+import store from 'client/state/store';
+import 'index.css';
+import App from 'client/App/App';
+import * as serviceWorker from 'serviceWorker';
+import addUser from 'client/state/actions';
 import nextId from 'react-id-generator';
 
 

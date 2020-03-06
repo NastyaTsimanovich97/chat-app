@@ -6,32 +6,26 @@ import {
 } from 'react-router-dom';
 
 import './App.style.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ChatContent from '../components/ChatContent';
-import LoginPage from '../components/LoginPage';
+import Header from 'client/components/Header';
+import Footer from 'client/components/Footer';
+import ChatContent from 'client/components/ChatContent';
+import LoginPage from 'client/components/LoginPage';
+import { LOGIN, CHAT, DEFAULT } from 'client/constants/routes';
 
 class App extends React.PureComponent {
-  // constructor(props){
-  //   super(props),
-  //   this.state = {
-  //     isLoggedIn: false,
-  //     isPassword: false,
-  //   }
-  // }
   render() {
     return (
       <Router>
         <div className="App">
           <Header />
           <Switch>
-            <Route exact path="/">
+            <Route exact path={DEFAULT}>
               <LoginPage />
             </Route>
-            <Route exact path="/login">
+            <Route exact path={LOGIN}>
               <LoginPage />
             </Route>
-            <Route exact path="/chat">
+            <Route exact path={CHAT}>
               <ChatContent />
             </Route>
           </Switch>

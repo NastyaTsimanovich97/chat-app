@@ -11,5 +11,7 @@ export default class Footer extends React.PureComponent {
 }
 
 Footer.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  classes: PropTypes.shape({
+    footerChat: PropTypes.string.isRequired,
+  }).isRequired,
 };

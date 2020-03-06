@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ChatContent.style';
-import ChatField from '../ChatField';
-import ChatInputComponent from '../ChatInputComponent';
+import ChatField from 'client/components/ChatField';
+import ChatInputComponent from 'client/components/ChatInputComponent';
 
 export default class ChatContent extends React.Component {
   constructor(props) {
@@ -52,5 +52,7 @@ export default class ChatContent extends React.Component {
 }
 
 ChatContent.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  classes: PropTypes.shape({
+    chatContent: PropTypes.string.isRequired,
+  }).isRequired,
 };

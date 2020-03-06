@@ -23,7 +23,12 @@ export default class Message extends React.PureComponent {
 }
 
 Message.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  classes: PropTypes.shape({
+    messageContainer: PropTypes.string.isRequired,
+    messageHeader: PropTypes.string.isRequired,
+    purple: PropTypes.string.isRequired,
+    messageText: PropTypes.string.isRequired,
+  }).isRequired,
   userLogo: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,

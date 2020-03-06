@@ -1,4 +1,4 @@
-import ADD_USER from '../constants/actionTypes';
+import ADD_USER from 'client/state/constants/actionTypes';
 
 const initialState = {
   users: []
