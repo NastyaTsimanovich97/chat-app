@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ChatContent.style';
-import ChatField from 'client/components/ChatField';
-import ChatInputComponent from 'client/components/ChatInputComponent';
+import ChatField from '../ChatField';
+import ChatInputComponent from '../ChatInputComponent';
 
 export default class ChatContent extends React.Component {
   constructor(props) {
@@ -10,8 +10,8 @@ export default class ChatContent extends React.Component {
     this.state = {
       messages: [{
         userId: '1234qwe',
-        userName: 'Semen',
-        userLogo: 'Se',
+        userName: 'John',
+        userLogo: 'Jo',
         message: 'Hello, how are you?',
       },
       {

@@ -19,6 +19,9 @@ const styles = {
     width: '80%',
     margin: '0 auto',
   },
+  link: {
+    textDecoration: 'none',
+  },
 };
 
 export default styles;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Message from 'client/components/Message';
-import MessageFromUser from 'client/components/MessageFromUser';
+import Message from '../Message';
+import MessageFromUser from '../MessageFromUser';
 
 export default class ChatField extends React.PureComponent {
   render() {

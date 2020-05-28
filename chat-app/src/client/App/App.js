@@ -6,11 +6,11 @@ import {
 } from 'react-router-dom';
 
 import './App.style.css';
-import Header from 'client/components/Header';
-import Footer from 'client/components/Footer';
-import ChatContent from 'client/components/ChatContent';
-import LoginPage from 'client/components/LoginPage';
-import { LOGIN, CHAT, DEFAULT } from 'client/constants/routes';
+import ChatContent from '../components/ChatContent';
+import LoginPage from '../components/LoginPage';
+import { LOGIN, CHAT, DEFAULT } from '../constants/routes';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 class App extends React.PureComponent {
   render() {

@@ -9,8 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import nextId from 'react-id-generator';
-import addUser from 'client/state/actions';
-import userLogin from 'client/selectors/userLoginSelect';
+import addUser from '../../state/actions';
+import userLogin from '../../selectors/userLoginSelect';
 
 
 class LoginPage extends React.Component {
@@ -101,14 +101,14 @@ class LoginPage extends React.Component {
               id="password-required"
               label="Password"
               type="password"
-              placeholder="123QWE"
+              placeholder="123Qwe"
               value={password}
               onChange={this.passwordChange}
             />
           </CardContent>
           <CardActions className={classes.cardActions}>
-            <Link to={link}><Button variant="contained" color="secondary" onMouseDown={this.handleSubmitSignUp}>Sign Up</Button></Link>
-            <Link to={link}><Button variant="contained" color="primary" onMouseDown={this.handleSubmitLogin}>Login</Button></Link>
+            <Link className={classes.link} to={link}><Button variant="contained" color="secondary" onMouseDown={this.handleSubmitSignUp}>Sign Up</Button></Link>
+            <Link className={classes.link} to={link}><Button variant="contained" color="primary" onMouseDown={this.handleSubmitLogin}>Login</Button></Link>
           </CardActions>
         </Card>
       </div>

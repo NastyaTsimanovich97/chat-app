@@ -29,7 +29,7 @@ export default class ChatInputComponent extends React.Component {
           label="Message"
           multiline
           rows="2"
-          placeholder="Message"
+          placeholder="Enter your message..."
           variant="outlined"
           value={value}
           onChange={this.inputChange}
