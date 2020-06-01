@@ -29,7 +29,7 @@ export default class ChatInputComponent extends React.Component {
           label="Message"
           multiline
           rows="2"
-          placeholder="Message"
+          placeholder="Enter your message..."
           variant="outlined"
           value={value}
           onChange={this.inputChange}
@@ -49,6 +49,10 @@ export default class ChatInputComponent extends React.Component {
 }
 
 ChatInputComponent.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  classes: PropTypes.shape({
+    buttonInput: PropTypes.string.isRequired,
+    chatInput: PropTypes.string.isRequired,
+    chatInputContainer: PropTypes.string.isRequired,
+  }).isRequired,
   updateData: PropTypes.func.isRequired,
 };

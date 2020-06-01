@@ -10,8 +10,8 @@ export default class ChatContent extends React.Component {
     this.state = {
       messages: [{
         userId: '1234qwe',
-        userName: 'Semen',
-        userLogo: 'Se',
+        userName: 'John',
+        userLogo: 'Jo',
         message: 'Hello, how are you?',
       },
       {
@@ -52,5 +52,7 @@ export default class ChatContent extends React.Component {
 }
 
 ChatContent.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  classes: PropTypes.shape({
+    chatContent: PropTypes.string.isRequired,
+  }).isRequired,
 };

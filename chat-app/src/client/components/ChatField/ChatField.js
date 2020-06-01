@@ -21,6 +21,11 @@ export default class ChatField extends React.PureComponent {
 
 ChatField.propTypes = {
   ownerId: PropTypes.string.isRequired,
-  messages: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  messages: PropTypes.arrayOf(PropTypes.shape({
+    userId: PropTypes.string.isRequired,
+  })).isRequired,
+  classes: PropTypes.shape({
+    chatField: PropTypes.string.isRequired,
+    messageContainer: PropTypes.string.isRequired,
+  }).isRequired,
 };
