@@ -1,3 +1,7 @@
-const ADD_USER = 'ADD_USER';
+const actionsType = {
+  ADD_USER: 'ADD_USER',
+  ADD_USER_SUCCEEDED: 'ADD_USER_SUCCEEDED',
+  ADD_USER_FAILED: 'ADD_USER_FAILED',
+};
 
-export default ADD_USER;
+export default actionsType;

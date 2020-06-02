@@ -1,13 +1,16 @@
-import ADD_USER from '../constants/actionTypes';
+import actionsType from '../constants/actionTypes';
 
 const initialState = {
-  users: []
+  user: {}
 };
 
 function rootReducer(state = initialState, action) {
-  if (action.type === ADD_USER) {
-    const users = [...state.users, action.payload]
-    return {...state, users };
+  if (action.type === actionsType.ADD_USER_SUCCEEDED) {
+    const user = {...state.user, token: action.payload.token};
+    return {...state, user };
+  }
+  if (action.type === actionsType.ADD_USER_FAILED) {
+   console.log(action.error);
   }
   return state;
 }
