@@ -8,7 +8,7 @@ import {
 import './App.style.css';
 import ChatContent from '../components/ChatContent';
 import LoginPage from '../components/LoginPage';
-import { LOGIN, CHAT, DEFAULT } from '../constants/routes';
+import { CHAT, DEFAULT } from '../constants/routes';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -20,9 +20,6 @@ class App extends React.PureComponent {
           <Header />
           <Switch>
             <Route exact path={DEFAULT}>
-              <LoginPage />
-            </Route>
-            <Route exact path={LOGIN}>
               <LoginPage />
             </Route>
             <Route exact path={CHAT}>
