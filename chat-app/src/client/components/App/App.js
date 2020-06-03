@@ -6,11 +6,11 @@ import {
 } from 'react-router-dom';
 
 import './App.style.css';
-import ChatContent from '../components/ChatContent';
-import LoginPage from '../components/LoginPage';
-import { CHAT, DEFAULT } from '../constants/routes';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import ChatContent from '../ChatContent';
+import MainPage from '../MainPage';
+import { CHAT, ROOT } from '../../constants/routes';
+import Footer from '../Footer';
+import Header from '../Header';
 
 class App extends React.PureComponent {
   render() {
@@ -19,8 +19,8 @@ class App extends React.PureComponent {
         <div className="App">
           <Header />
           <Switch>
-            <Route exact path={DEFAULT}>
-              <LoginPage />
+            <Route exact path={ROOT}>
+              <MainPage />
             </Route>
             <Route exact path={CHAT}>
               <ChatContent />

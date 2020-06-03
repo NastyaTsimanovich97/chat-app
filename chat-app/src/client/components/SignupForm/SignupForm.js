@@ -5,10 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import addUser from '../../state/actions';
-import getUserToken from '../../selectors/userSignup';
-
-const emailReg = '^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
-const minNameLength = 3;
+import { emailReg, minNameLength, passwordReg } from '../../constants/constants';
 
 class SignupForm extends Component {
   constructor(props) {
@@ -42,7 +39,7 @@ class SignupForm extends Component {
       email, name, password,
     } = this.state;
     const { addNewUser } = this.props;
-    if (!email.match(emailReg) || name.length < minNameLength || !password) {
+    if (!email.match(emailReg) || name.length < minNameLength || !password.match(passwordReg)) {
       this.setState({ isUserValid: true });
     } else {
       addNewUser({ email, name, password });
@@ -92,13 +89,13 @@ class SignupForm extends Component {
             id="password-signup"
             label="Password"
             type="password"
-            placeholder="123Qwe"
+            placeholder="1Qw"
             value={password}
             onChange={this.passwordChange}
           />
         </CardContent>
         <CardActions className={classes.SignupForm__cardActions}>
-          <Button className={classes.SignupForm__link__button} variant="contained" color="secondary" onMouseDown={this.handleSubmitSignUp}>Sign Up</Button>
+          <Button className={classes.SignupForm__button} variant="contained" color="secondary" onClick={this.handleSubmitSignUp}>Sign Up</Button>
         </CardActions>
       </Card>
     );
@@ -110,8 +107,7 @@ SignupForm.propTypes = {
     SignupForm: PropTypes.string.isRequired,
     SignupForm__input: PropTypes.string.isRequired,
     SignupForm__cardActions: PropTypes.string.isRequired,
-    SignupForm__link: PropTypes.string.isRequired,
-    SignupForm__link__button: PropTypes.string.isRequired,
+    SignupForm__button: PropTypes.string.isRequired,
   }).isRequired,
   addNewUser: PropTypes.func.isRequired,
 };
@@ -122,12 +118,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-  userToken: getUserToken(state),
-});
-
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(SignupForm);

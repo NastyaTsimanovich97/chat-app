@@ -1,11 +1,11 @@
 import React from 'react';
 import LoginForm from '../LoginForm';
 import SignupForm from '../SignupForm';
-import './LoginPage.css';
+import './MainPage.css';
 
-export default function LoginPage() {
+export default function MainPage() {
   return (
-    <div className="LoginPage">
+    <div className="MainPage">
       <LoginForm />
       <SignupForm />
     </div>

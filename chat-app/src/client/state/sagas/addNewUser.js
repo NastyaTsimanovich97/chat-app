@@ -1,11 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import actionsType from '../constants/actionTypes';
 import errors from '../constants/errors';
-
-const BAD_REQUEST = 400;
-const serverErrorReg = '^5';
-const emailConflict = 2;
-const nameConflict = 3;
+import { serverErrorReg, errorCodes } from '../../constants/constants';
 
 function* fetchUser(action) {
   try {
@@ -17,24 +13,23 @@ function* fetchUser(action) {
           Origin: 'http://localhost:3000',
         },
         body: JSON.stringify(action.payload),
-      })
-      .then((res) => res.json()),
-    action.payload);
-    if (signupResponse.statusCode === BAD_REQUEST) {
-      const errorCode = signupResponse.body.code;
-      if (errorCode === emailConflict) {
-        yield put({ type: actionsType.ADD_USER_FAILED, payload: errors.EMAIL_CONFLICT });
+      }));
+    const signupResponseJSON = yield signupResponse.json();
+    if (signupResponseJSON.statusCode === errorCodes.BAD_REQUEST) {
+      const errorCode = signupResponseJSON.body.code;
+      if (errorCode === errorCodes.emailConflict) {
+        yield put({ type: actionsType.ADD_USER_FAIL, payload: errors.EMAIL_CONFLICT });
       }
-      if (errorCode === nameConflict) {
-        yield put({ type: actionsType.ADD_USER_FAILED, payload: errors.NAME_ERROR });
+      if (errorCode === errorCodes.nameConflict) {
+        yield put({ type: actionsType.ADD_USER_FAIL, payload: errors.NAME_ERROR });
       }
-    } else if (signupResponse.statusCode.toString().match(serverErrorReg)) {
-      yield put({ type: actionsType.ADD_USER_FAILED, payload: errors.SERVER_ERROR });
+    } else if (signupResponseJSON.statusCode.toString().match(serverErrorReg)) {
+      yield put({ type: actionsType.ADD_USER_FAIL, payload: errors.SERVER_ERROR });
     } else {
-      yield put({ type: actionsType.ADD_USER_SUCCEEDED, payload: signupResponse });
+      yield put({ type: actionsType.ADD_USER_SUCCESS, payload: signupResponseJSON });
     }
   } catch (e) {
-    yield put({ type: actionsType.ADD_USER_FAILED, error: e });
+    yield put({ type: actionsType.ADD_USER_FAIL, error: e });
   }
 }
 

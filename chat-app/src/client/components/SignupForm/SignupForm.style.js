@@ -16,10 +16,7 @@ const styles = {
     width: '80%',
     margin: '0 auto',
   },
-  SignupForm__link: {
-    textDecoration: 'none',
-  },
-  SignupForm__link__button: {
+  SignupForm__button: {
     width: '180px',
   },
 };

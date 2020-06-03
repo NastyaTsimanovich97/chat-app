@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-
+import { Button, TextField } from '@material-ui/core';
 
 export default class ChatInputComponent extends React.Component {
   constructor(props) {
@@ -12,15 +10,23 @@ export default class ChatInputComponent extends React.Component {
     };
 
     this.inputChange = this.inputChange.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
   }
 
   inputChange(event) {
     this.setState({ value: event.target.value });
   }
 
+  sendMessage() {
+    const { updateData } = this.props;
+    const { value } = this.state;
+    updateData(value);
+    this.setState({ value: '' });
+  }
+
   render() {
     const { value } = this.state;
-    const { classes, updateData } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.chatInputContainer}>
         <TextField
@@ -34,12 +40,11 @@ export default class ChatInputComponent extends React.Component {
           value={value}
           onChange={this.inputChange}
         />
-
         <Button
           className={classes.buttonInput}
           variant="contained"
           color="secondary"
-          onClick={() => { updateData(value); }}
+          onClick={this.sendMessage}
         >
           Send
         </Button>

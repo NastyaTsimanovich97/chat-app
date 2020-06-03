@@ -1,2 +1,2 @@
-export const DEFAULT = '/';
+export const ROOT = '/';
 export const CHAT = '/chat';
