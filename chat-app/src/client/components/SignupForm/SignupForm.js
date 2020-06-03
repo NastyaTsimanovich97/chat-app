@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Card, CardActions, CardContent, Button, Typography, TextField,
 } from '@material-ui/core';
@@ -8,6 +7,8 @@ import { connect } from 'react-redux';
 import addUser from '../../state/actions';
 import getUserToken from '../../selectors/userSignup';
 
+const emailReg = '^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
+const minNameLength = 3;
 
 class SignupForm extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class SignupForm extends Component {
       email, name, password,
     } = this.state;
     const { addNewUser } = this.props;
-    if (!email || !name || !password) {
+    if (!email.match(emailReg) || name.length < minNameLength || !password) {
       this.setState({ isUserValid: true });
     } else {
       addNewUser({ email, name, password });
@@ -56,13 +57,7 @@ class SignupForm extends Component {
     const {
       email, name, password, isUserValid,
     } = this.state;
-    let link;
 
-    if (!isUserValid) {
-      link = '/chat';
-    } else {
-      link = '/login';
-    }
     return (
       <Card className={classes.SignupForm}>
         <CardContent>
@@ -75,6 +70,7 @@ class SignupForm extends Component {
             required
             id="email-signup"
             label="Email"
+            type="email"
             placeholder="user@gmail.com"
             value={email}
             onChange={this.emailChange}
@@ -102,7 +98,7 @@ class SignupForm extends Component {
           />
         </CardContent>
         <CardActions className={classes.SignupForm__cardActions}>
-          <Link className={classes.SignupForm__link} to={link}><Button className={classes.SignupForm__link__button} variant="contained" color="secondary" onMouseDown={this.handleSubmitSignUp}>Sign Up</Button></Link>
+          <Button className={classes.SignupForm__link__button} variant="contained" color="secondary" onMouseDown={this.handleSubmitSignUp}>Sign Up</Button>
         </CardActions>
       </Card>
     );
