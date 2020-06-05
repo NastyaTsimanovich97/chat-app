@@ -14,7 +14,10 @@ class SignupForm extends Component {
       email: '',
       name: '',
       password: '',
-      isUserValid: false,
+      isEmailValid: false,
+      isNameValid: false,
+      isPasswordValid: false,
+      isSignupClick: false,
     };
     this.emailChange = this.emailChange.bind(this);
     this.nameChange = this.nameChange.bind(this);
@@ -34,25 +37,54 @@ class SignupForm extends Component {
     this.setState({ password: event.target.value });
   }
 
+  checkEmail() {
+    const { email } = this.state;
+    return !!email.match(emailReg) && email !== '';
+  }
+
+  checkName() {
+    const { name } = this.state;
+    return name.length >= minNameLength && name !== '';
+  }
+
+  checkPassword() {
+    const { password } = this.state;
+    return !!password.match(passwordReg) && password !== '';
+  }
+
   handleSubmitSignUp() {
     const {
       email, name, password,
     } = this.state;
     const { addNewUser } = this.props;
-    if (!email.match(emailReg) || name.length < minNameLength || !password.match(passwordReg)) {
-      this.setState({ isUserValid: true });
-    } else {
+    const isEmailValid = this.checkEmail();
+    const isNameValid = this.checkName();
+    const isPasswordValid = this.checkPassword();
+    this.setState((state) => ({
+      ...state,
+      isSignupClick: true,
+      isEmailValid,
+      isNameValid,
+      isPasswordValid,
+    }));
+    if (isEmailValid && isNameValid && isPasswordValid) {
       addNewUser({ email, name, password });
-      this.setState({
-        email: '', name: '', password: '', isUserValid: false,
-      });
+      this.setState(() => ({
+        email: '',
+        name: '',
+        password: '',
+        isEmailValid: false,
+        isNameValid: false,
+        isPasswordValid: false,
+        isSignupClick: false,
+      }));
     }
   }
 
   render() {
     const { classes } = this.props;
     const {
-      email, name, password, isUserValid,
+      email, name, password, isEmailValid, isNameValid, isPasswordValid, isSignupClick,
     } = this.state;
 
     return (
@@ -62,7 +94,7 @@ class SignupForm extends Component {
             Sign Up
           </Typography>
           <TextField
-            error={isUserValid}
+            error={isSignupClick ? !isEmailValid : false}
             className={classes.SignupForm__input}
             required
             id="email-signup"
@@ -73,7 +105,7 @@ class SignupForm extends Component {
             onChange={this.emailChange}
           />
           <TextField
-            error={isUserValid}
+            error={isSignupClick ? !isNameValid : false}
             className={classes.SignupForm__input}
             required
             id="name-signup"
@@ -83,7 +115,7 @@ class SignupForm extends Component {
             onChange={this.nameChange}
           />
           <TextField
-            error={isUserValid}
+            error={isSignupClick ? !isPasswordValid : false}
             className={classes.SignupForm__input}
             required
             id="password-signup"
