@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Card, CardActions, CardContent, Button, Typography, TextField,
 } from '@material-ui/core';
 import { signinUser as signinUserAction } from '../../state/actions';
-import { emailReg, passwordReg } from '../../constants/constants';
+import { emailReg, passwordReg } from '../../constants/regExp';
 
-class SigninForm extends Component {
+class SigninForm extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

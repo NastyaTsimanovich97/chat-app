@@ -2,8 +2,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers';
-import watchAddUser from '../sagas/addNewUser';
-import watchSigninUser from '../sagas/signinUser';
+import signupUserWatcher from '../sagas/addNewUser';
+import signinUserWatcher from '../sagas/signinUser';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -14,7 +14,7 @@ const store = createStore(
   )
 );
 
-sagaMiddleware.run(watchAddUser);
-sagaMiddleware.run(watchSigninUser);
+sagaMiddleware.run(signupUserWatcher);
+sagaMiddleware.run(signinUserWatcher);
 
 export default store;

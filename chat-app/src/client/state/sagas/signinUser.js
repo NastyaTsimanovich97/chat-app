@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import actionsType from '../constants/actionTypes';
-import errors from '../constants/errors';
-import { serverErrorReg, errorCodes } from '../../constants/constants';
+import { errors, errorCodes, errorCodesMap } from '../constants/errors';
+import { serverErrorReg } from '../../constants/regExp';
 
-function* fetchUser(action) {
+function* signinUserWorker(action) {
   try {
     const signinResponse = yield call(() => fetch('/signin',
       {
@@ -17,9 +17,8 @@ function* fetchUser(action) {
     const signinResponseJSON = yield signinResponse.json();
     if (signinResponseJSON.statusCode === errorCodes.BAD_REQUEST) {
       const errorCode = signinResponseJSON.body.code;
-      if (errorCode === errorCodes.authConflict) {
-        yield put({ type: actionsType.SIGNIN_USER_FAIL, payload: errors.AUTH_CONFLICT });
-      }
+      const payload = errorCodesMap[errorCode] || errorCodes.default;
+      yield put({ type: actionsType.SIGNIN_USER_FAIL, payload });
     } else if (signinResponseJSON.statusCode.toString().match(serverErrorReg)) {
       yield put({ type: actionsType.SIGNIN_USER_FAIL, payload: errors.SERVER_ERROR });
     } else {
@@ -30,6 +29,6 @@ function* fetchUser(action) {
   }
 }
 
-export default function* watchSigninUser() {
-  yield takeEvery(actionsType.SIGNIN_USER, fetchUser);
+export default function* signinUserWatcher() {
+  yield takeEvery(actionsType.SIGNIN_USER, signinUserWorker);
 }

@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import actionsType from '../constants/actionTypes';
-import errors from '../constants/errors';
-import { serverErrorReg, errorCodes } from '../../constants/constants';
+import { errors, errorCodes, errorCodesMap } from '../constants/errors';
+import { serverErrorReg } from '../../constants/regExp';
 
-function* fetchUser(action) {
+function* signupUserWorker(action) {
   try {
     const signupResponse = yield call(() => fetch('/signup',
       {
@@ -17,22 +17,18 @@ function* fetchUser(action) {
     const signupResponseJSON = yield signupResponse.json();
     if (signupResponseJSON.statusCode === errorCodes.BAD_REQUEST) {
       const errorCode = signupResponseJSON.body.code;
-      if (errorCode === errorCodes.emailConflict) {
-        yield put({ type: actionsType.ADD_USER_FAIL, payload: errors.EMAIL_CONFLICT });
-      }
-      if (errorCode === errorCodes.nameConflict) {
-        yield put({ type: actionsType.ADD_USER_FAIL, payload: errors.NAME_ERROR });
-      }
+      const payload = errorCodesMap[errorCode] || errorCodes.default;
+      yield put({ type: actionsType.SIGNUP_USER_FAIL, payload });
     } else if (signupResponseJSON.statusCode.toString().match(serverErrorReg)) {
-      yield put({ type: actionsType.ADD_USER_FAIL, payload: errors.SERVER_ERROR });
+      yield put({ type: actionsType.SIGNUP_USER_FAIL, payload: errors.SERVER_ERROR });
     } else {
-      yield put({ type: actionsType.ADD_USER_SUCCESS, payload: signupResponseJSON });
+      yield put({ type: actionsType.SIGNUP_USER_SUCCESS, payload: signupResponseJSON });
     }
   } catch (e) {
-    yield put({ type: actionsType.ADD_USER_FAIL, error: e });
+    yield put({ type: actionsType.SIGNUP_USER_FAIL, error: e });
   }
 }
 
-export default function* watchAddUser() {
-  yield takeEvery(actionsType.ADD_USER, fetchUser);
+export default function* signupUserWatcher() {
+  yield takeEvery(actionsType.SIGNUP_USER, signupUserWorker);
 }

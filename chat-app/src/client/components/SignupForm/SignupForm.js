@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Card, CardActions, CardContent, Button, Typography, TextField,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addUser } from '../../state/actions';
-import { emailReg, minNameLength, passwordReg } from '../../constants/constants';
+import { signupUser } from '../../state/actions';
+import { emailReg, minNameLength, passwordReg } from '../../constants/regExp';
 
-class SignupForm extends Component {
+class SignupForm extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +56,7 @@ class SignupForm extends Component {
     const {
       email, name, password,
     } = this.state;
-    const { addNewUser } = this.props;
+    const { signupNewUser } = this.props;
     const isEmailValid = this.checkEmail();
     const isNameValid = this.checkName();
     const isPasswordValid = this.checkPassword();
@@ -68,7 +68,7 @@ class SignupForm extends Component {
       isPasswordValid,
     }));
     if (isEmailValid && isNameValid && isPasswordValid) {
-      addNewUser({ email, name, password });
+      signupNewUser({ email, name, password });
       this.setState(() => ({
         email: '',
         name: '',
@@ -141,12 +141,12 @@ SignupForm.propTypes = {
     SignupForm__cardActions: PropTypes.string.isRequired,
     SignupForm__button: PropTypes.string.isRequired,
   }).isRequired,
-  addNewUser: PropTypes.func.isRequired,
+  signupNewUser: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    addNewUser: (user) => dispatch(addUser(user)),
+    signupNewUser: (user) => dispatch(signupUser(user)),
   };
 }
 
