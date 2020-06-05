@@ -2,6 +2,7 @@ export const serverErrorReg = '^5';
 
 export const errorCodes = {
   BAD_REQUEST: 400,
+  authConflict: 1,
   emailConflict: 2,
   nameConflict: 3,
 };

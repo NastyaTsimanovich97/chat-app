@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Card, CardActions, CardContent, Button, Typography, TextField,
 } from '@material-ui/core';
+import { signinUser as signinUserAction } from '../../state/actions';
+import { emailReg, passwordReg } from '../../constants/constants';
 
-export default class LoginForm extends Component {
+class SigninForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      isUserExist: false,
     };
     this.emailChange = this.emailChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
+    this.handleSubmitSignIn = this.handleSubmitSignIn.bind(this);
   }
 
   emailChange(event) {
@@ -24,10 +27,43 @@ export default class LoginForm extends Component {
     this.setState({ password: event.target.value });
   }
 
+  checkEmail() {
+    const { email } = this.state;
+    return !!email.match(emailReg) && email !== '';
+  }
+
+  checkPassword() {
+    const { password } = this.state;
+    return !!password.match(passwordReg) && password !== '';
+  }
+
+  handleSubmitSignIn() {
+    const { email, password } = this.state;
+    const { signinUser } = this.props;
+    const isEmailValid = this.checkEmail();
+    const isPasswordValid = this.checkPassword();
+    this.setState((state) => ({
+      ...state,
+      isSigninClick: true,
+      isEmailValid,
+      isPasswordValid,
+    }));
+    if (isEmailValid && isPasswordValid) {
+      signinUser({ email, password });
+      this.setState(() => ({
+        email: '',
+        password: '',
+        isEmailValid: false,
+        isPasswordValid: false,
+        isSigninClick: false,
+      }));
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const {
-      email, password, isUserExist,
+      email, password, isEmailValid, isPasswordValid, isSigninClick,
     } = this.state;
     return (
       <Card className={classes.LoginForm}>
@@ -36,7 +72,7 @@ export default class LoginForm extends Component {
             Sign In
           </Typography>
           <TextField
-            error={isUserExist}
+            error={isSigninClick ? !isEmailValid : false}
             className={classes.LoginForm__input}
             required
             id="email-required"
@@ -46,30 +82,41 @@ export default class LoginForm extends Component {
             onChange={this.emailChange}
           />
           <TextField
-            error={isUserExist}
+            error={isSigninClick ? !isPasswordValid : false}
             className={classes.LoginForm__input}
             required
             id="password-required"
             label="Password"
             type="password"
-            placeholder="123Qwe"
             value={password}
             onChange={this.passwordChange}
           />
         </CardContent>
         <CardActions className={classes.LoginForm__cardActions}>
-          <Button variant="contained" color="primary">Sign In</Button>
+          <Button variant="contained" color="primary" onClick={this.handleSubmitSignIn}>Sign In</Button>
         </CardActions>
       </Card>
     );
   }
 }
 
-LoginForm.propTypes = {
+SigninForm.propTypes = {
   classes: PropTypes.shape({
     LoginForm: PropTypes.string.isRequired,
     LoginForm__input: PropTypes.string.isRequired,
     LoginForm__cardActions: PropTypes.string.isRequired,
     LoginForm__link: PropTypes.string.isRequired,
   }).isRequired,
+  signinUser: PropTypes.func.isRequired,
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    signinUser: (user) => dispatch(signinUserAction(user)),
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(SigninForm);

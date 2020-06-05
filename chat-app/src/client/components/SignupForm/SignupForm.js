@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import addUser from '../../state/actions';
+import { addUser } from '../../state/actions';
 import { emailReg, minNameLength, passwordReg } from '../../constants/constants';
 
 class SignupForm extends Component {
