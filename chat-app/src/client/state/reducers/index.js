@@ -10,16 +10,16 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case actionsType.ADD_USER_SUCCESS : {
-      const user = {...state.user, user: { token: action.payload.body.token }};
-      return {...state, user };
+    case actionsType.SIGNUP_USER_SUCCESS : {
+      const user = {user: { token: action.payload.body.token }};
+      return {...state, user};
     }
-    case actionsType.ADD_USER_FAIL : {
-      const error = {...state.error, error: {
+    case actionsType.SIGNUP_USER_FAIL : {
+      const error = {error: {
           status: true,
           message: action.payload
         }};
-      return {...state, error };
+      return {...state, error};
     }
   }
   return state;
