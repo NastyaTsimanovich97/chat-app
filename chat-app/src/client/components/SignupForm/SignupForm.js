@@ -14,10 +14,9 @@ class SignupForm extends PureComponent {
       email: '',
       name: '',
       password: '',
-      isEmailValid: false,
-      isNameValid: false,
-      isPasswordValid: false,
-      isSignupClick: false,
+      isEmailValid: true,
+      isNameValid: true,
+      isPasswordValid: true,
     };
     this.emailChange = this.emailChange.bind(this);
     this.nameChange = this.nameChange.bind(this);
@@ -60,23 +59,22 @@ class SignupForm extends PureComponent {
     const isEmailValid = this.checkEmail();
     const isNameValid = this.checkName();
     const isPasswordValid = this.checkPassword();
-    this.setState((state) => ({
-      ...state,
-      isSignupClick: true,
-      isEmailValid,
-      isNameValid,
-      isPasswordValid,
-    }));
     if (isEmailValid && isNameValid && isPasswordValid) {
       signupNewUser({ email, name, password });
       this.setState(() => ({
         email: '',
         name: '',
         password: '',
-        isEmailValid: false,
-        isNameValid: false,
-        isPasswordValid: false,
-        isSignupClick: false,
+        isEmailValid: true,
+        isNameValid: true,
+        isPasswordValid: true,
+      }));
+    } else {
+      this.setState((state) => ({
+        ...state,
+        isEmailValid,
+        isNameValid,
+        isPasswordValid,
       }));
     }
   }
@@ -84,7 +82,7 @@ class SignupForm extends PureComponent {
   render() {
     const { classes } = this.props;
     const {
-      email, name, password, isEmailValid, isNameValid, isPasswordValid, isSignupClick,
+      email, name, password, isEmailValid, isNameValid, isPasswordValid,
     } = this.state;
 
     return (
@@ -94,7 +92,7 @@ class SignupForm extends PureComponent {
             Sign Up
           </Typography>
           <TextField
-            error={isSignupClick && !isEmailValid}
+            error={!isEmailValid}
             className={classes.SignupForm__input}
             required
             id="email-signup"
@@ -105,7 +103,7 @@ class SignupForm extends PureComponent {
             onChange={this.emailChange}
           />
           <TextField
-            error={isSignupClick && !isNameValid}
+            error={!isNameValid}
             className={classes.SignupForm__input}
             required
             id="name-signup"
@@ -115,7 +113,7 @@ class SignupForm extends PureComponent {
             onChange={this.nameChange}
           />
           <TextField
-            error={isSignupClick && !isPasswordValid}
+            error={!isPasswordValid}
             className={classes.SignupForm__input}
             required
             id="password-signup"
