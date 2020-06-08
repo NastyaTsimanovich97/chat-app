@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,8 +11,9 @@ import MainPage from '../MainPage';
 import { CHAT, ROOT } from '../../constants/routes';
 import Footer from '../Footer';
 import Header from '../Header';
+import AuthenticationRoute from '../AuthenticationRoute';
 
-class App extends React.PureComponent {
+class App extends PureComponent {
   render() {
     return (
       <Router>
@@ -22,9 +23,9 @@ class App extends React.PureComponent {
             <Route exact path={ROOT}>
               <MainPage />
             </Route>
-            <Route exact path={CHAT}>
+            <AuthenticationRoute path={CHAT}>
               <ChatContent />
-            </Route>
+            </AuthenticationRoute>
           </Switch>
           <Footer />
         </div>
