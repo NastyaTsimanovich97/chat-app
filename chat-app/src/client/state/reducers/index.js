@@ -1,7 +1,9 @@
 import actionsType from '../constants/actionTypes';
 
 const initialState = {
-  user: {},
+  user: {
+    token: '',
+  },
   error: {
     status: false,
     message: '',
