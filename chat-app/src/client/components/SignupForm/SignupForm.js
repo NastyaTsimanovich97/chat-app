@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import signupUser from '../../state/actions';
+import { signupUser } from '../../state/actions';
 import { emailReg, minNameLength, passwordReg } from '../../constants/regExp';
 
 class SignupForm extends PureComponent {

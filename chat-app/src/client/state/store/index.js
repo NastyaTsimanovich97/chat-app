@@ -3,6 +3,7 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers';
 import signupUserWatcher from '../sagas/signupUser';
+import signinUserWatcher from '../sagas/signinUser';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -14,5 +15,6 @@ const store = createStore(
 );
 
 sagaMiddleware.run(signupUserWatcher);
+sagaMiddleware.run(signinUserWatcher);
 
 export default store;
