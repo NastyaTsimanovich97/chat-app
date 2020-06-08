@@ -3,8 +3,8 @@ const styles = {
     flexGrow: 0,
     width: '100%',
     height: '70px',
-    backgroundColor: 'rgb(52, 139, 226)',
-    color: 'rgb(255, 255, 255)',
+    backgroundColor: '#348BE2',
+    color: '#FFFFFF',
   },
 };
 

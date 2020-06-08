@@ -1,5 +1,5 @@
-import ADD_USER from '../constants/actionTypes';
+import actionsType from '../constants/actionTypes';
 
-export default function addUser(userData) {
-  return { type: ADD_USER, payload: userData }
+export default function signupUser(userData) {
+  return { type: actionsType.SIGNUP_USER, payload: userData }
 };
