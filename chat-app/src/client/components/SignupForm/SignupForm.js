@@ -94,7 +94,7 @@ class SignupForm extends PureComponent {
             Sign Up
           </Typography>
           <TextField
-            error={isSignupClick ? !isEmailValid : false}
+            error={isSignupClick && !isEmailValid}
             className={classes.SignupForm__input}
             required
             id="email-signup"
@@ -105,7 +105,7 @@ class SignupForm extends PureComponent {
             onChange={this.emailChange}
           />
           <TextField
-            error={isSignupClick ? !isNameValid : false}
+            error={isSignupClick && !isNameValid}
             className={classes.SignupForm__input}
             required
             id="name-signup"
@@ -115,7 +115,7 @@ class SignupForm extends PureComponent {
             onChange={this.nameChange}
           />
           <TextField
-            error={isSignupClick ? !isPasswordValid : false}
+            error={isSignupClick && !isPasswordValid}
             className={classes.SignupForm__input}
             required
             id="password-signup"
