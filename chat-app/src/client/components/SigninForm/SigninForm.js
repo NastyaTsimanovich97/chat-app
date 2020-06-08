@@ -13,6 +13,8 @@ class SigninForm extends PureComponent {
     this.state = {
       email: '',
       password: '',
+      isEmailValid: true,
+      isPasswordValid: true,
     };
     this.emailChange = this.emailChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
@@ -42,28 +44,26 @@ class SigninForm extends PureComponent {
     const { signinUser } = this.props;
     const isEmailValid = this.checkEmail();
     const isPasswordValid = this.checkPassword();
-    this.setState((state) => ({
-      ...state,
-      isSigninClick: true,
-      isEmailValid,
-      isPasswordValid,
-    }));
     if (isEmailValid && isPasswordValid) {
       signinUser({ email, password });
-      this.setState(() => ({
+      this.setState({
         email: '',
         password: '',
-        isEmailValid: false,
-        isPasswordValid: false,
-        isSigninClick: false,
-      }));
+        isEmailValid: true,
+        isPasswordValid: true,
+      });
+    } else {
+      this.setState({
+        isEmailValid,
+        isPasswordValid,
+      });
     }
   }
 
   render() {
     const { classes } = this.props;
     const {
-      email, password, isEmailValid, isPasswordValid, isSigninClick,
+      email, password, isEmailValid, isPasswordValid,
     } = this.state;
     return (
       <Card className={classes.LoginForm}>
@@ -72,7 +72,7 @@ class SigninForm extends PureComponent {
             Sign In
           </Typography>
           <TextField
-            error={isSigninClick && !isEmailValid}
+            error={!isEmailValid}
             className={classes.LoginForm__input}
             required
             id="email-required"
@@ -82,7 +82,7 @@ class SigninForm extends PureComponent {
             onChange={this.emailChange}
           />
           <TextField
-            error={isSigninClick && !isPasswordValid}
+            error={!isPasswordValid}
             className={classes.LoginForm__input}
             required
             id="password-required"
