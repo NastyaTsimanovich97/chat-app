@@ -72,7 +72,7 @@ class SigninForm extends PureComponent {
             Sign In
           </Typography>
           <TextField
-            error={isSigninClick ? !isEmailValid : false}
+            error={isSigninClick && !isEmailValid}
             className={classes.LoginForm__input}
             required
             id="email-required"
@@ -82,7 +82,7 @@ class SigninForm extends PureComponent {
             onChange={this.emailChange}
           />
           <TextField
-            error={isSigninClick ? !isPasswordValid : false}
+            error={isSigninClick && !isPasswordValid}
             className={classes.LoginForm__input}
             required
             id="password-required"
